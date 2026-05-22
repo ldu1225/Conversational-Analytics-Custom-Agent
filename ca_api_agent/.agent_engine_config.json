@@ -1,0 +1,6 @@
+{
+  "identity_type": "AGENT_IDENTITY",
+  "env_vars": {
+    "GOOGLE_CLOUD_LOCATION": "global"
+  }
+}
