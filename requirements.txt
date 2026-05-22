@@ -1,4 +1,4 @@
-google-adk[agent-engines]>=1.28.0
+google-adk
 google-cloud-geminidataanalytics>=0.1.0
 google-cloud-bigquery>=3.0.0
 python-dotenv>=1.0.0

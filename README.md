@@ -29,8 +29,8 @@ gcloud --version
 # 2. Python 3.10 이상 설치 확인
 python3 --version
 
-# 3. Google ADK 도구 설치
-pip install google-adk
+# 3. Google ADK 및 필수 의존성 라이브러리 통합 설치 (필수)
+pip install -r requirements.txt
 ```
 
 ### 2. 대상 빅쿼리 로그 테이블 준비
@@ -105,3 +105,13 @@ Deployment completed successfully!
 2. **Stateful 멀티턴 그래프 요청 (Turn 2):**
    > *"그래프로 사용량추이도 보여줘"*
    * **에이전트 반응:** 1차 질문의 탑3 유저를 정확하게 기억하여, 이들을 **일별 사용량 변동폭을 나타내는 시계열 꺾은선 그래프(Matplotlib Line Chart)를 base64 PNG 이미지 형태로 대화창 내부에 다이렉트 렌더링**해 냅니다!
+
+---
+
+## 🛠️ 트러블슈팅 (Troubleshooting)
+
+### 1. 라이브러리 설치 중 `protobuf` 관련 경고(Warning)가 발생합니다.
+* **현상:** `pip install -r requirements.txt` 실행 중 `protobuf` 의존성 충돌 경고가 나타날 수 있습니다.
+* **원인:** 로컬 파이썬 환경의 기존 레거시 구글 클라우드 패키지 중 일부가 구버전의 protobuf를 요구하지만, 본 에이전트에 탑재된 최신 GenAI SDK 패키지는 최신 버전의 protobuf(`4.25.x` 이상)를 끌어오기 때문에 pip가 출력하는 종속성 경고입니다.
+* **해결:** 이는 **런타임 작동 및 배포에 전혀 영향을 미치지 않는 단순 Warning(경고)**이므로 안전하게 무시하고 진행하셔도 무방합니다.
+
