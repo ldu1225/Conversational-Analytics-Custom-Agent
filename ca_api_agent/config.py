@@ -3,17 +3,30 @@
 # USER CONFIGURATION: Change these variables to deploy your agent
 # =====================================================================
 
+import os
+import json
+
 # 1. Google Cloud Settings
-PROJECT_ID = "your-gcp-project-id"
+PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT") or os.getenv("PROJECT_ID") or "your-gcp-project-id"
+
 LOCATION = "us-central1"  # Region for Reasoning Engine (Agent Engine) deployment and CA API
 
 # 2. BigQuery Tables Settings
 # List all specific tables you want your agent to reference.
 # The agent will dynamically discover and query only these tables.
-TABLES = [
-    {"dataset_id": "your_dataset_id", "table_id": "your_table_id_1"},
-    {"dataset_id": "your_dataset_id", "table_id": "your_table_id_2"}
-]
+TABLES_ENV = os.getenv("BIGQUERY_TABLES")
+if TABLES_ENV:
+    try:
+        TABLES = json.loads(TABLES_ENV)
+    except Exception:
+        TABLES = [
+            {"dataset_id": "your_dataset_id", "table_id": "your_table_id_1"}
+        ]
+else:
+    TABLES = [
+        {"dataset_id": "your_dataset_id", "table_id": "your_table_id_1"},
+        {"dataset_id": "your_dataset_id", "table_id": "your_table_id_2"}
+    ]
 
 # 3. Agent Display Settings
 AGENT_DISPLAY_NAME = "Enterprise BQ Logs Analyst Agent"
