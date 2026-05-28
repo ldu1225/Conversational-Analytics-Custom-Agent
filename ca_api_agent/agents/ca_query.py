@@ -364,6 +364,7 @@ async def stream_nlq(question: str, ctx: InvocationContext) -> AsyncGenerator[st
         inline_context=_build_inline_context(),
     )
 
+    yielded_any = False
     yielded_sql = False
     yielded_table = False
     yielded_chart = False
